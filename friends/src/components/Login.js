@@ -9,6 +9,17 @@ class Login extends React.Component {
     },
   };
 
+  handleChange = e => {
+    this.setState({
+      credentials: {
+        ...this.state.credentials,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
+
+  
+
   render() {
     return (
       <div>
