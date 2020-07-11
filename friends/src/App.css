@@ -37,7 +37,34 @@
   }
 }
 
+/* Login Page CSS */
 
+ 
+label{
+  text-align: left;
+}
+input {
+  
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+.friends-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 ul {
   list-style-type: none;
+  text-align: left;
+}
+.friends {
+  border: solid black;
+  margin: 2%;
+  width: 30%;
+  height: 25vh;
+  /* margin-left: 33%; */
+}
+img {
+  width: 10%;
 }

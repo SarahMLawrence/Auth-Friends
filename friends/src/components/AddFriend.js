@@ -1,18 +1,27 @@
-import React from "react";
+import React, { Component } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 class AddFriend extends React.Component {
-  state = {
-    friends: {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: Date.now,
       name: "",
+      age: "",
       email: "",
-    },
+      errorMsg: "",
+    };
+  }
+
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+
     axiosWithAuth()
-      .post("/friends", this.state.friends)
+      .post("/api/friends", this.state)
       .then((res) => {
         console.log(res);
         this.props.history.push("/protected");
@@ -24,13 +33,30 @@ class AddFriend extends React.Component {
     return (
       <div className="add-friend">
         <h1 className="title">Add New Friend</h1>
-        <form action="/add-friend" onSubmit={this.handleSubmit}>
+        <form action="/protected" onSubmit={this.handleSubmit}>
           <label>Name: </label>
           <input
             type="text"
             name="name"
             onChange={this.handleChange}
             value={this.state.name}
+            autoComplete="off"
+          />
+          <label>Age: </label>
+          <input
+            type="text"
+            name="age"
+            onChange={this.handleChange}
+            value={this.state.age}
+            autoComplete="off"
+          />
+
+          <label>Email: </label>
+          <input
+            type="text"
+            name="email"
+            onChange={this.handleChange}
+            value={this.state.email}
             autoComplete="off"
           />
 

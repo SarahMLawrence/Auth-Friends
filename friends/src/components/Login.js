@@ -1,9 +1,10 @@
 import React from "react";
-import axios from "axios";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 
 class Login extends React.Component {
   state = {
+    isLoading: false,
     credentials: {
       username: "",
       password: "",
@@ -17,43 +18,63 @@ class Login extends React.Component {
         [e.target.name]: e.target.value,
       },
     });
+    console.log(this.state.credentials);
   };
 
   login = (e) => {
     e.preventDefault();
+    this.setState({ ...this.state, isLoading: true });
     axiosWithAuth()
-      .post("/login", this.state.credentials)
+      .post("/api/login", this.state.credentials)
       .then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.payload);
         this.props.history.push("/protected");
       })
-      .catch((err) => console.log({ err }));
+      .catch((err) => {
+        console.log("Err is: ", err);
+        alert("Can not sign in ");
+        this.setState({ ...this.state, isLoading: false });
+      });
   };
 
   render() {
     return (
-      <div>
+      <div className="login-form">
+        <div className="enter-form">
         <form onSubmit={this.login}>
+          <label>Username: </label>
           <input
             type="text"
             name="username"
             autoComplete="off"
-            value={this.state.credentials.username}
+            // value={this.state.credentials.username}
             onChange={this.handleChange}
      
           />
 
+<label>Password: </label>
           <input
             type="passwor"
             name="password"
             autoComplete="off"
-            value={this.state.credentials.password}
+            // value={this.state.credentials.password}
             onChange={this.handleChange}
           />
           <button>Log In</button>
         </form>
+
+        {this.state.isLoading && (
+          <div>
+            <h3>Logging you in! PLEASE WAIT</h3>
+          </div>
+        )}
       </div>
+      </div>
+
+
+
+ 
     );
   }
 }

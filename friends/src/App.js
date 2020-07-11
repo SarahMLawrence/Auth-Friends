@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import FriendList from "./components/FriendList";
 import AddFriend from "./components/AddFriend";
 
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 
 class App extends React.Component {
@@ -19,13 +19,14 @@ class App extends React.Component {
           <div className="nav">
             <Link to="/login">Login</Link>
             <Link to="/protected">Friends List</Link>
-            <Link to="/add-friend">Add New Friend</Link>
+            <Link to="/addfriend">Add New Friend</Link>
           </div>
 
           <Switch>
-            <Route path="login" component={Login} />
+            <Route path="/login" component={Login} />
+
             <PrivateRoute exact path="/protected" component={FriendList} />
-            <PrivateRoute exact path="/add-friend" component={AddFriend} />
+            <PrivateRoute exact path="/addFriend" component={AddFriend} />
           </Switch>
         </div>
       </Router>
